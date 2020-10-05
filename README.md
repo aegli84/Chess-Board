@@ -1,4 +1,4 @@
 # Chess-Board
 
-**Project underconstruction**
+**Project under construction**
 https://aegli84.github.io/Chess-Board/
