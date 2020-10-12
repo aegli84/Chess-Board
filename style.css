@@ -10,6 +10,7 @@ body {
     
 }*/
 
+
 main > section > div {
     width: 6vw;
     height: 10vh;
@@ -18,7 +19,7 @@ main > section > div {
 
 section {
     float: left;
-    
+
 }
 
 div > img {
@@ -42,29 +43,30 @@ main > section:nth-child(even) > div:nth-child(even) {
     background: radial-gradient(#434343, #000000);
 }
 
-.flip-card-back {
+.flip-card {
+    perspective: 150px;
+    
+    
+}
+
+/*.flip-card-front .flip-card-back {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}*/
+
+.flip-card-back{
     transition: transform 0.6s;
     width: 6vw;
     height: 10vh;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transform-style: preserve-3d;
-
-}
-.flip-card:hover .flip-card-back {
-    transform: rotateY(180deg);
-    background-color:#A4161A;
     
 }
 
-.flip-card {
-    perspective: 150px;
+.flip-card:hover .flip-card-back {
+    transform: rotateY(180deg);
+    background-color:#A4161A;
 }
-
-
-/*div:first-child {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}*/
 
 main > section > div:nth-child(even) {
     color: #FFBE0B;
