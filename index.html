@@ -5,7 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess Board</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet"> -->
+    <script> 
+           // you  can do this with class but: 
+           //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields
+           // the private fields  feature is behind 
+           // the javascript.options.experimental.private_fields preferences 
+           // (needs to be set to true) and the javascript.options.experimental.private_methods
+           //  preferences (needs to be set to true). To change preferences in Firefox, visit about:config.
+           const chessTableBase = function(){
+                 const piece  = function (color, type){
+                     const piece = document.createElement('img');
+                     cube.setAttribute(
+                         'src',
+                         `./assets/${color}${type}.png`
+                     );
+
+                 }
+                 const field = function (line_number) { 
+                     const cube = document.createElement('div');
+                     const card = document.createElement('div');
+                     const empty = document.createElement('div');
+                     cube.className = 'flip-card';
+                     cube.setAttribute(
+                         'id',
+                         'line_'+line_number.toString()
+                     );
+                     card.className = 'flip-card-back';
+                     cube.appendChild(card);
+                     cube.appendChild(empty);
+                     return cube;
+
+                 }
+                 const column = function(column_number){
+                      const section = document.createElement('section');
+                      section.setAttribute(
+                          'id',
+                          ('column_'+column_number.toString())
+                      );
+                      for (let i = 1 ; 9 > i ; i++)
+                          section.appendChild(field(i));
+                      return section;
+
+                 }
+                 const table = function(){
+                      const main = document.getElementsByTagName('main')[0];
+                      main.innerHTML="";
+                      for(let i = 1 ; 9 > i ; i++)
+                          main.appendChild(column(i));
+                 }
+                 table();
+           }
+           window.onload = function(){
+                new chessTableBase();
+           }
+    </script>
 </head>
 <body>
     <main>
