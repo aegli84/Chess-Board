@@ -14,6 +14,7 @@
            // (needs to be set to true) and the javascript.options.experimental.private_methods
            //  preferences (needs to be set to true). To change preferences in Firefox, visit about:config.
            const chessTableBase = function(){
+                 const column_titles = ['a','b','c','d','e','f','g','h'];
                  const piece  = function (color, type){
                      const piece = document.createElement('img');
                      cube.setAttribute(
@@ -22,14 +23,14 @@
                      );
 
                  }
-                 const field = function (line_number) { 
+                 const field = function (column_name, line_number) { 
                      const cube = document.createElement('div');
                      const card = document.createElement('div');
                      const empty = document.createElement('div');
                      cube.className = 'flip-card';
                      cube.setAttribute(
                          'id',
-                         'line_'+line_number.toString()
+                         'cube_'+column_name+line_number
                      );
                      card.className = 'flip-card-back';
                      cube.appendChild(card);
@@ -37,22 +38,29 @@
                      return cube;
 
                  }
-                 const column = function(column_number){
+                 const column = function(column_name){
                       const section = document.createElement('section');
                       section.setAttribute(
                           'id',
-                          ('column_'+column_number.toString())
+                              ('column_'+column_name.toString())
                       );
-                      for (let i = 1 ; 9 > i ; i++)
-                          section.appendChild(field(i));
+                      for (let line_number = 8 ; line_number > 0 ; line_number--)
+                          section.appendChild(
+                              field(
+                                  column_name,
+                                  line_number
+                              )
+                          );
                       return section;
 
                  }
                  const table = function(){
                       const main = document.getElementsByTagName('main')[0];
                       main.innerHTML="";
-                      for(let i = 1 ; 9 > i ; i++)
-                          main.appendChild(column(i));
+                      for(const column_name of column_titles)
+                          main.appendChild(
+                              column(column_name)
+                          );
                  }
                  table();
            }
