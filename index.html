@@ -13,16 +13,118 @@
            // the javascript.options.experimental.private_fields preferences 
            // (needs to be set to true) and the javascript.options.experimental.private_methods
            //  preferences (needs to be set to true). To change preferences in Firefox, visit about:config.
+
+           
+
            const chessTableBase = function(){
-                 const column_titles = ['a','b','c','d','e','f','g','h'];
-                 const piece  = function (color, type){
+                 this.render = function(){
+                     return render();
+                 }
+                 let pieces = {White:[],Black:[]};
+                 const pieceAdd = function(color,type,position){
+                      pieces[color].push({
+                           'type'     : type,
+                           'position' : position
+                      });
+                 }
+                 const pieceRender  = function (color, type){
                      const piece = document.createElement('img');
-                     cube.setAttribute(
+                     piece.setAttribute(
                          'src',
                          `./assets/${color}${type}.png`
                      );
-
+                    return piece
                  }
+                 const pieceTo = function(color,type,position){
+                      document.getElementById(
+                         'cube_'+position
+                      ).getElementsByTagName(
+                         'div'
+                      )[0].appendChild(
+                         pieceRender(color, type)
+                      );
+                 }
+                 const piecesRender  = function(){
+                     for(const color in pieces)
+                         for(const id in pieces[color])
+                             pieceTo(
+                                 color,
+                                 pieces[color][id].type,
+                                 pieces[color][id].position,
+                            );
+                 }
+                 const piecesToStartPosition = function(){
+                        pieces = {White:[],Black:[]};
+                        for(const column of column_titles)
+                             pieceAdd(
+                                 'White',
+                                 'Pawn',
+                                 column+'2'
+                             );
+                        for(const column of column_titles)
+                             pieceAdd(
+                                 'Black',
+                                 'Pawn',
+                                 column+'7'
+                             );
+                        for(const column of ['a','h'])
+                             pieceAdd(
+                                 'White',
+                                 'Rook',
+                                 column+'1'
+                             );
+                        for(const column of ['a','h'])
+                             pieceAdd(
+                                 'Black',
+                                 'Rook',
+                                 column+'8'
+                             );
+                        for(const column of ['b','g'])
+                             pieceAdd(
+                                 'White',
+                                 'Knight',
+                                 column+'1'
+                             );
+                        for(const column of ['b','g'])
+                             pieceAdd(
+                                 'Black',
+                                 'Knight',
+                                 column+'8'
+                             );
+                        for(const column of ['c','f'])
+                             pieceAdd(
+                                 'White',
+                                 'Bishop',
+                                 column+'1'
+                             );
+                        for(const column of ['c','f'])
+                             pieceAdd(
+                                 'Black',
+                                 'Bishop',
+                                 column+'8'
+                             );
+                        pieceAdd(
+                            'White',
+                            'Queen',
+                            'd1'
+                        );
+                        pieceAdd(
+                            'Black',
+                            'Queen',
+                            'd8'
+                        );
+                        pieceAdd(
+                            'White',
+                            'King',
+                            'e1'
+                        );
+                        pieceAdd(
+                            'Black',
+                            'King',
+                            'e8'
+                        );
+                 }
+                 const column_titles = ['a','b','c','d','e','f','g','h'];
                  const field = function (column_name, line_number) { 
                      const cube = document.createElement('div');
                      const card = document.createElement('div');
@@ -62,7 +164,12 @@
                               column(column_name)
                           );
                  }
-                 table();
+                 const render = function(){
+                     table();
+                     piecesRender();
+                 }
+                 piecesToStartPosition();
+                 render();
            }
            window.onload = function(){
                 new chessTableBase();
@@ -71,354 +178,6 @@
 </head>
 <body>
     <main>
-        <section>
-            <div class="flip-card">
-                <!--<div class="flip-card-front">-->
-                <div class="flip-card-back">
-                    <img src="./assets/BlackRook.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackPawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhitePawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhiteRook.png">
-                </div>
-                    <div>
-                    </div>
-        </section>
-    
-        <section>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackKnight.png">
-                </div>
-                    <div >
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackPawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-                    <div>
-                    </div>
-                    <div>
-                        C
-                    </div>
-                </div>
-            </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhitePawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhiteKnight.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-        </section>
-    
-        <section>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackBishop.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackPawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-                    <div>
-                    </div>
-                    <div>
-                        H
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhitePawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhiteBishop.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    
-        <section>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackQueen.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackPawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-                    <div>
-                    </div>
-                    <div>
-                        E
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhitePawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhiteQueen.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    
-        <section>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackKing.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackPawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-                    <div>
-                    </div>
-                    <div>
-                        S
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhitePawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhiteKing.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    
-        <section>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackBishop.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackPawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-                    <div>
-                    </div>
-                    <div>
-                        S
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhitePawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhiteBishop.png">
-                </div>
-                    <div>
-                    </div>
-        </section>
-    
-        <section>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackKnight.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackPawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-                    <div>
-                    </div>
-                    <div>
-                        !
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-            
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhitePawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhiteKnight.png">
-                </div>
-                    <div>
-                    </div>
-            </div>
-        </div>
-        </section>
-    
-        <section>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackRook.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/BlackPawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhitePawn.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card">
-                <div class="flip-card-back">
-                    <img src="./assets/WhiteRook.png">
-                </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 </body>
 </html>
